@@ -1,0 +1,10 @@
+version: '3.2'
+
+services:
+  serviciomaton:
+    container_name: cwvl-maton
+    build: ./
+    ports:
+      - "3030:3000"
+    target: dev
+    command: npm run dev

@@ -1,0 +1,22 @@
+# Changelog
+
+## [Unreleased]
+
+## [1.0.0] - 2022-11-14
+
+### Added
+
+- Servicio para la autenticación de los agenets de CWVl
+- Se agrego la conexion a la base de datos en mongo
+- Las rutas para el login
+- Creción y retorno de tokens de autenticación
+- Modelos para el agente
+
+#### Types of changes
+
+**Added** for new features.
+**Changed** for changes in existing functionality.
+**Deprecated** for soon-to-be removed features.
+**Removed** for now removed features.
+**Fixed** for any bug fixes.
+**Security** in case of vulnerabilities.
