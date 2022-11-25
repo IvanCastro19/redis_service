@@ -2,16 +2,14 @@
 
 ## [Unreleased]
 
-## [1.0.0] - 2022-11-14
+## [1.0.0] - 2022-11-25
 
 ### Added
 
-- Servicio para la autenticación de los agenets de CWVl
-- Se agrego la conexion a la base de datos en mongo
-- Las rutas para el login
-- Creción y retorno de tokens de autenticación
-- Modelos para el agente
-
+- Servicio para el almacenamiento y despacho de peticiones de 360Dialog
+- Configuraciones iniciales para redis
+- Rutas de acceso o eliminación de mensajes
+- Servicio de despacho de mensajes
 #### Types of changes
 
 **Added** for new features.
