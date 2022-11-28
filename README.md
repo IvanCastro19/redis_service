@@ -6,11 +6,7 @@ disqus: hackmd
 # Servicio de colas con redis
 ###### tags: `microservices` `redis` `queue` `Ivan`,`colas`
 
-
-## Tabla de contenido
-[TOC]
-
-## Documentación 
+## Documentación Extra
 - [Redis](https://redis.io/)
 - [npm](https://docs.npmjs.com/)
 - [Typescript](https://www.typescriptlang.org/)
@@ -123,7 +119,7 @@ sh compile.sh
 
 
 #### script para correr el contenedor
-````
+```
 docker run \
     --name redis_queue \
     --net cwvl \
@@ -132,9 +128,8 @@ docker run \
     auth \
     -e REDIS_URL={redis url}
 ```
+#### para correr el script en shell
 
-para correr el script en shell
-
-````
+```
 sh run.sh
-````
+```
