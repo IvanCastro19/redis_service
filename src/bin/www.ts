@@ -1,7 +1,7 @@
 import app from '../app';
 import redis from '../database/redis';
 import configs from '../config/constants/configs';
-import startQueue from '../config/main';
+import { Queue } from '../config/main';
 /**
  * Get port from environment and store in Express.
  */
@@ -12,9 +12,12 @@ app.set('port', port);
 /**
  * Listen on provided port, on all network interfaces.
  */
-redis.startConnection().then(() => 
-  app.listen(port, function() {
-    console.log(`API Server started on port: ${port}`);
-    startQueue();
-  })
-).catch(err => {console.error("redis error: ", err); return;});
+
+app.listen(port, async function() {
+  console.log(`API Server started on port: ${port}`);
+  await Queue()
+    .on('error', err => console.warn("Redis error: ", err));
+  console.info('Redis connection done')
+  });
+/* redis.startConnection().then(() => 
+).catch(err => {console.error("redis error: ", err); return;}); */

@@ -1,26 +1,9 @@
-import { getFirstMessage, deleteMessage } from "../database/controllers/messages";
-import { sendMessage } from "../controllers/messages.controller";
+import Bull from 'bull';
+import config from './constants/configs';
 
-const main = () => {
-    while (true) {
-        setTimeout( async () => {
-            try {
-                const message: Object | null = await getFirstMessage();
-                
-                if(!message)
-                    return;
+const name: string = 'messages';
 
-                if(!await sendMessage(message))
-                    return;
+export const Queue = () => new Bull(name, {
+    redis: { host: config.REDIS.HOST, port: parseInt(config.REDIS.PORT) }
+});
 
-                await deleteMessage();
-
-            } catch (err) {
-                console.error(err);
-                return;
-            }
-        }, 1000);
-    }
-}
-
-export default main;
