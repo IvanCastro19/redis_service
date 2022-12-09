@@ -5,9 +5,7 @@ import { createBullBoard } from 'bull-board';
 
 const name: string = 'messages';
 
-export const Queue = new Bull(name, {
-    redis: config.REDIS.URL
-});
+export const Queue = new Bull(name, config.REDIS.URL);
 
 export const { router } = createBullBoard([
     new BullAdapter(Queue)
