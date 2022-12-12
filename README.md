@@ -25,7 +25,8 @@ Si cuentas con docker instalado, solo ejecuta el siguiente comando:
 ### Windows
 Por ahora, no hay una versión oficial de redis para windows, sin embargo, es posible instalarlo gracias a [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) (Windows Subsystem for Linux).
 
-Una vez cuentes con WSL2, ingresa en la terminal Ubuntu y agrega el repositorio de redis al apt, entonces, realiza la instalación
+Una vez cuentes con WSL2, ingresa en la terminal Ubuntu y agrega el repositorio de redis al apt, entonces, realiza la instalación.
+
         curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
         echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
 
@@ -39,8 +40,10 @@ Al terminar, iniciar el servicio
 Para instalar redis en macOS, utilizaremos [Homebrew](https://brew.sh/), por ende, es necesario que esté ya este instalado en la maquina.
 
 Ahora procedemos a la instalación de redis, para ello, ejecuta el comando:
+
         brew install redis
 Procedemos a iniciar el servicio:
+
         brew services start redis
 ### Ruta
     v1/store_message
