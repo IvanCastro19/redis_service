@@ -16,11 +16,16 @@ Para que las peticiones entre servicios sea más eficiente, utilizaremos el alma
 Por ahora, este servicio solo será el intermediario entre nuestro Webhook y el chatbot.
 
 ## Datos relevantes
-Para la correcta ejecución del proyecto, es necesario tener un almacenamiento de redis ya preconfigurado y editar las variables de entorno con la url de acceso al servicio anteriomente mencionado. Para poder realizar pruebas, será necesario ejecutar un entorno temporal de redis donde las peticiones se almacenen.
+Para la correcta ejecución del proyecto, es necesario tener un almacenamiento de redis ya preconfigurado y editar las variables de entorno con la url de acceso al servicio anteriomente mencionado. 
+
+        REDIS_URL='redis://default:redispw@localhost:49155'
+
+Para poder realizar pruebas, será necesario ejecutar un entorno temporal de redis donde las peticiones se almacenen.
 
 ## Instrucciones para crear una base de datos en redis
 ### Docker
 Si cuentas con docker instalado, solo ejecuta el siguiente comando:
+
         docker run --name some-redis -d redis
 ### Windows
 Por ahora, no hay una versión oficial de redis para windows, sin embargo, es posible instalarlo gracias a [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) (Windows Subsystem for Linux).
@@ -34,14 +39,20 @@ Una vez cuentes con WSL2, ingresa en la terminal Ubuntu y agrega el repositorio 
         sudo apt-get install redis
 
 Al terminar, iniciar el servicio
+
         sudo service redis-server start
 
 ### macOS
 Para instalar redis en macOS, utilizaremos [Homebrew](https://brew.sh/), por ende, es necesario que esté ya este instalado en la maquina.
 
+        $ brew --version
+
+Si el comando enterior falla, será necesario intalar Homebrew.
+
 Ahora procedemos a la instalación de redis, para ello, ejecuta el comando:
 
         brew install redis
+
 Procedemos a iniciar el servicio:
 
         brew services start redis
