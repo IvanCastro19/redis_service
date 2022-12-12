@@ -10,76 +10,44 @@ disqus: hackmd
 - [Redis](https://redis.io/)
 - [npm](https://docs.npmjs.com/)
 - [Typescript](https://www.typescriptlang.org/)
-
+- [Docker](https://docs.docker.com/)
 ## Descripción del servicio
 Para que las peticiones entre servicios sea más eficiente, utilizaremos el almacenamiento de datos en RAM que redis ofrece como cola de peticiones, donde entrarán y serán direccionadas al servicio pertinete. 
 Por ahora, este servicio solo será el intermediario entre nuestro Webhook y el chatbot.
 
+## Datos relevantes
+Para la correcta ejecución del proyecto, es necesario tener un almacenamiento de redis ya preconfigurado y editar las variables de entorno con la url de acceso al servicio anteriomente mencionado. Para poder realizar pruebas, será necesario ejecutar un entorno temporal de redis donde las peticiones se almacenen.
+
+## Instrucciones para crear una base de datos en redis
+### Docker
+Si cuentas con docker instalado, solo ejecuta el siguiente comando:
+        docker run --name some-redis -d redis
+### Windows
+Por ahora, no hay una versión oficial de redis para windows, sin embargo, es posible instalarlo gracias a [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) (Windows Subsystem for Linux).
+
+Una vez cuentes con WSL2, ingresa en la terminal Ubuntu y agrega el repositorio de redis al apt, entonces, realiza la instalación
+        curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+        echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
+
+        sudo apt-get update
+        sudo apt-get install redis
+
+Al terminar, iniciar el servicio
+        sudo service redis-server start
+
+### macOS
+Para instalar redis en macOS, utilizaremos [Homebrew](https://brew.sh/), por ende, es necesario que esté ya este instalado en la maquina.
+
+Ahora procedemos a la instalación de redis, para ello, ejecuta el comando:
+        brew install redis
+Procedemos a iniciar el servicio:
+        brew services start redis
 ### Ruta
     v1/store_message
 ### Entrada
     v1/webhook -- webhook
 ### Salida
     /bot -- chatbot 
-
-## Casos de uso
-
-### Almacenar mensaje
-
-```gherkin=
-  Scenario: Agregar mensaje a la cola
-    When Entra el objeto tipo mensaje al servicio
-    Then se agrega a la base de datos de redis. 
-    La lista de mensajes comienza con el más viejo al más reciente   
-```
-#### Flujo
-```sequence
-    Webhook->redis_service: { mensaje: 'Hola!', wa_id: '44912345678' }
-    Note right of redis_service: Almacena el mensaje
-    redis_service->redisDB: { mensaje: 'Hola!', wa_id: '44912345678' }
-    redis_service-->Webhook: { status: ok }
-    
-```
-
-### Extraer mensaje
-
-```gherkin=
-  Scenario: Envíar mensaje al bot
-    When Despues de almacenar el mensaje, 
-    este se despacha directo al chatbot, espera la respuesta del mensaje enviado y, 
-    al recibirla, envía otro mensaje.
-```
-#### Flujo
-```sequence
-    redis_service->redisDB: {method: GET message}
-    redisDB-->redis_service: { mensaje: 'Hola!', wa_id: '44912345678' }
-    redis_service->bot: { mensaje: 'Hola!', wa_id: '44912345678' }
-    bot--redis_service: { status: 200 }
-    Note right of redis_service: Volvemos al inicio
-    redis_service->redisDB: {method: GET message}
-    redisDB-->redis_service: { mensaje: 'Hola de nuevo!', wa_id: '44912345679' }
-    redis_service->bot: { mensaje: 'Hola de nuevo!', wa_id: '44912345679' }
-    
-```
-
-### Bot retorna error al servicio de redis
-
-```gherkin=
-  Scenario: Mensaje de error en el servicio "bot"
-    When El bot retorna un estatus de error al servicio de redis, este, 
-    deja un tiempo de espera para asegurar que el servicio "bot" 
-    vuelva a estar en linea en caso de un parón
-```
-#### Flujo
-```sequence
-    redis_service->bot: { mensaje: 'Hola!', wa_id: '44912345678' }
-    bot-->redis_service: {status: error}
-    Note right of redis_service: Tiempo de espera...
-    redis_service->bot: { mensaje: 'Hola!', wa_id: '44912345678' }
-    bot-->redis_service: {status: 200}
-    Note right of redis_service: Siguiente mensaje
-    redis_service->bot: { mensaje: 'Hola, de nuevo!', wa_id: '44912345678' }
-```
 
 ## Comandos
 ### Instalación de dependencias
