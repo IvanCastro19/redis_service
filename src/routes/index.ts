@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { storeMessage, messagesStored, deleteMessage, firstStoredMessage } from '../controllers/messages.controller';
+import { storeMessage, messagesStored, deleteMessage, firstStoredMessage } from '../controllers/redis.messages';
 
 const route = Router();
 

@@ -6,7 +6,7 @@ import cors from 'cors';
 import createError from 'http-errors';
 import routes from './routes/index';
 import logging from './config/log/logging';
-import { router } from './config/main';
+import { router } from './config/bull';
 
 const app = express();
 

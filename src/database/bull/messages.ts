@@ -1,5 +1,5 @@
-import { client } from '../../database/redis';
-import { sendMessage } from '../../controllers/messages.controller';
+import { client } from '../redis';
+import { sendMessage } from '../../controllers/redis.messages';
 
 const kname: string = 'messages'
 

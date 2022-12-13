@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { storeMessage as SM, getMessages, deleteMessage as dMessage, getFirstMessage } from '../database/controllers/messages';
+import { storeMessage as SM, getMessages, deleteMessage as dMessage, getFirstMessage } from '../database/bull/messages';
 import axios, { Axios, AxiosResponse } from 'axios';
-import { addMessageJob } from '../database/controllers/bull.controllers';
+import { addMessageJob } from '../database/bull/bull.controllers';
 
 export const storeMessage = async (req: Request, res: Response): Promise<Response> => {
     try {
