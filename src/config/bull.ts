@@ -11,7 +11,6 @@ export const { router } = createBullBoard([
     new BullAdapter(Queue)
 ]);
 
-
 export const attemptRedisConnection = (): any => {
     return new Promise<boolean>(async (resolve) => {
         let error: string = '';

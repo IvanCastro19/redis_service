@@ -4,16 +4,16 @@
   "description": "Servicio de almacenamiento de redis",
   "main": "src/bin/www",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha -r ts-node/register './src/tests/*.ts'",
     "dev": "tsc-watch --onSuccess \"node dist/bin/www.js\" ",
     "tsc": "tsc --init",
     "build": "rimraf ./dist && tsc",
     "start": "npm run build && node dist/bin/www.js"
   },
-  "author": "GEo",
+  "author": "Ivan Castro",
   "license": "ISC",
   "dependencies": {
-    "axios": "^1.2.0",
+    "axios": "^1.2.1",
     "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
@@ -32,6 +32,7 @@
     "mongoose": "^6.7.2",
     "redis": "^4.5.0",
     "rimraf": "^3.0.2",
+    "supertest": "^6.3.3",
     "tsc-watch": "^5.0.3",
     "typescript": "^4.8.4"
   },
@@ -45,6 +46,7 @@
     "@types/http-errors": "^2.0.1",
     "@types/jsonwebtoken": "^8.5.9",
     "@types/mocha": "^10.0.0",
+    "@types/supertest": "^2.0.12",
     "chai": "^4.3.7",
     "mocha": "^10.1.0",
     "ts-node": "^10.9.1"
