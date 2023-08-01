@@ -6,12 +6,14 @@ import cors from 'cors';
 import createError from 'http-errors';
 import routes from './routes/index';
 import logging from './config/log/logging';
+import { router } from './config/bull';
 
 const app = express();
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+app.use('/v1/admin/queues', router); 
 
 //logging
 app.use((req, res, next) => {

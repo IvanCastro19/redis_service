@@ -11,9 +11,13 @@ const GLOBAL = {
 
 // Redis
 const url: string = process.env.REDIS_URL || 'localhost:4000';
+const host: string = process.env.REDIS_HOST || 'localhost';
+const redis_port = process.env.REDIS_PORT || '8080';
 
 const REDIS = {
-    URL: url 
+    URL: url,
+    HOST: host,
+    PORT: redis_port
 };
 
 // Global configuration
